@@ -1,5 +1,7 @@
 package com.teamx
 
+import com.teamx.verticle.TemplateTest
+import com.teamx.verticle.UserVerticle
 import io.vertx.core.Vertx
 
 class VertxMain {
