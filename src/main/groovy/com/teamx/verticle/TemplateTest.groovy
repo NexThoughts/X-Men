@@ -1,11 +1,10 @@
 package com.teamx.verticle
 
-import io.vertx.core.Vertx
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.AbstractVerticle
 import io.vertx.ext.web.Router
-import io.vertx.ext.web.handler.StaticHandler;
-import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
+import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.templ.ThymeleafTemplateEngine
+
 class TemplateTest extends AbstractVerticle {
 
     void start() {
