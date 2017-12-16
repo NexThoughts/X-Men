@@ -75,7 +75,7 @@ class ResourceVerticle extends AbstractVerticle {
         JsonObject resourceJSONData = routingContext.getBodyAsJson()
         def jsonSlurper = new JsonSlurper()
         def resourceObjData = jsonSlurper.parseText(resourceJSONData.toString())
-        session.put("currentUserUuid", "26a4364a-a8b1-46f2-b2fd-6628ebd62ef6")
+        session.put("currentUserUuid", "${UUID.randomUUID()}")
         ResourceLink resourceLink = new ResourceLink(resourceObjData, session.get("currentUserUuid").toString())
 
         client.getConnection({ conn ->
