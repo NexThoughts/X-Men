@@ -34,8 +34,6 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     compile "io.vertx:vertx-lang-groovy:3.5.0"
-
-    //Mail
     compile 'io.vertx:vertx-mail-client:3.5.0'
 
     //TemplateEngine

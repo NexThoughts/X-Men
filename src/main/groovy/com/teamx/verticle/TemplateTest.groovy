@@ -8,13 +8,6 @@ import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
 class TemplateTest extends AbstractVerticle {
 
     void start() {
-
-        def vertx = Vertx.vertx([
-                workerPoolSize: 40
-        ])
-
-        println "Landing Page"
-
         final Router router = Router.router(vertx);
 
         // In order to use a Thymeleaf template we first need to create an engine
