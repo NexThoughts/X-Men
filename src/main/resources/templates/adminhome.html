@@ -1,0 +1,550 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LinkSharing</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/w2ui/1.4.3/w2ui.min.css" />
+
+    <script type="text/javascript" src="https://d.smartusys.net/scp6.6.3/js/jquery-1.7.js"></script>
+    <script type="text/javascript">
+        var k = jQuery.noConflict();
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/w2ui/1.4.3/w2ui.min.js"></script>
+
+    <style type="text/css">
+    .border-TB{
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        }
+        #imgLogo {
+            float: left;
+            margin-top: 7px;
+        }
+
+        .pageHeader {
+            background-color: #f7f7f7;
+        }
+        .modal-body .form-control{
+            display: inline-block !important;
+            width: 95% !important;
+        }
+
+
+        .search {
+            float: left;
+            margin-top: 19px;
+            width: 77%;
+        }
+
+        .userActions {
+            margin-top: 17px;
+            margin-left: 10px;
+            float: right;
+        }
+
+        .pageFooter {
+            background-color: #f7f7f7;
+            position: absolute;
+            margin-bottom: 0;
+            bottom: 0;
+            width: 100%;
+            font-size: small;
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .search .form-control {
+            height: 30px !important;
+        }
+
+        .login-form {
+            line-height: 20px;
+            color: #2b542c !important;
+        }
+
+        .header_top {
+            color: #2aabd2;
+        }
+
+        .errorbox {
+            border: 1px solid #ffa8a8 !important;
+            background-color: #fff4eb !important
+        }
+        .p-10{
+        padding: 10px;
+    </style>
+    <style type="text/css">
+
+
+        #title {
+            float: left;
+            font-family: "Bookman", Georgia, "Times New Roman", serif;
+        }
+
+        .socialIcons {
+            margin-top: 21px;
+            float: right;
+        }
+
+
+        .fa-facebook {
+            color: #FFFFFF;
+        }
+
+        .facebook .fa-circle {
+            color: #3b5998;
+        }
+
+        .linkedin .fa-circle {
+            color: #0077B5;
+        }
+
+        .fa-linkedin {
+            color: #FFFFFF;
+        }
+
+        .facebook:hover .fa-circle {
+            color: gray;
+        }
+
+        .linkedin:hover .fa-circle {
+            color: gray;
+        }
+
+        .loginBody{
+            background-color: #ffffff;
+            height: 85%;
+            margin-top: 7px;
+            border-radius: 5px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .recentShares .divTitle{
+            background-color: #f7f7f7;
+            color: #000000;
+            line-height: 30px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: bold;
+            padding-left: 10px;
+            border: 1px solid #2b669a;
+            border-bottom: 0px;
+        }
+
+        .recentShares .divbody{
+            min-height: 200px;
+            max-height: 200px;
+            border: solid;
+            border-width: 1px;
+            border-color: #2b669a;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .recentShares .divbody .nodata{
+            margin-top: 90px;
+            line-height: 20px;
+            vertical-align: middle;
+        }
+
+        .topPosts .divTitle{
+            margin-top: 10px;
+            background-color: #f7f7f7;
+            color: #000000;
+            line-height: 30px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: bold;
+            padding-left: 10px;
+            border: 1px solid #2b669a;
+            border-bottom: 0px;
+        }
+
+        .topPosts .divbody{
+            min-height: 200px;
+            max-height: 200px;
+            border: solid;
+            border-width: 1px;
+            border-color: #2b669a;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .topPosts .divbody .nodata {
+            margin-top: 90px;
+            line-height: 20px;
+            vertical-align: middle;
+        }
+
+        .loginForm{
+            float: left;
+        }
+
+        .loginForm .loginFormTitle{
+            margin-top: 5px;
+            background-color: #f7f7f7;
+            color: #000000;
+            line-height: 30px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: bold;
+            padding-left: 10px;
+            border: 1px solid #2b669a;
+            border-bottom: 0px;
+        }
+
+        .loginForm .loginFormBody{
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border: solid;
+            border-width: 1px;
+            border-color: #2b669a;
+            padding-top: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 160px;
+        }
+
+        .loginForm .loginFormBody > div > span {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .loginForm .loginFormBody > div > span >label{
+            line-height: 29px;
+        }
+
+        .loginFormBody .form-control {
+            display: inline-block !important;
+            width: 95% !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('input[mandatory="1"],select[mandatory="1"]').each(function(){
+                $(this).after("<span style='color:#c12e2a;padding-left:3px;font-size:20px;'>*</span>");
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        var count;
+        $(document).ready(function () {
+            k(".errorbox").live('input', function () {
+                $(this).removeClass('errorbox');
+            });
+        });
+
+        function emailValidator(emailObj){
+            var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            if(filter.test($(emailObj).val())){
+                return true;
+            }
+            error.showError(emailObj, "Please enter a valid Email ID.")
+            return false;
+        }
+
+        function validateAllFields(fieldId){
+            $('.w2ui-tag ').hide();
+            count = 0;
+            var errorField;
+            $(fieldId).find('input[mandatory="1"],select[mandatory="1"]').each(function () {
+                var $this = $(this);
+                if ($($this)[0].type == "select-one"){
+                    if($($this[0]).find('option:selected')[0].value.trim().length == 0){
+                        $this.addClass('errorbox');
+                        if(count == 0){
+                            $this.focus();
+                            errorField = $this[0];
+                        }
+                        count++;
+                    }
+                }
+                else if($this.val().trim().length == 0){
+                    $this.addClass('errorbox');
+                    if(count == 0){
+                        $this.focus();
+                        errorField = $this[0];
+                    }
+                    count++;
+                }
+            });
+            if(count > 1){
+//                toastr.error('Please enter all the mandatory information.')
+                w2alert('Please enter all the mandatory information.');
+            }
+            else if(count == 1){
+                validateSingleField(errorField);
+            }
+            else{
+                return true;
+            }
+            return false;
+        }
+
+        function validateSingleField(errorField) {
+            error.showError(errorField, $(errorField).attr('errorMessage'))
+        }
+
+        var error = {
+            showError: function (obj, message) {
+                try {
+                    $(obj).addClass('errorbox');
+                    if (message.length > 0) {
+                        $(obj).w2tag(message);
+                        if (message.length > 150) {
+                            $('.w2ui-tag').addClass('w2ui-tag-length');
+                        }
+                    }
+                } catch (e) {
+                    console.log(e.message);
+                }
+
+            },
+            hideError: function (obj) {
+                try {
+                    $(obj).removeClass('errorbox');
+                    $(obj).w2tag('');
+                }
+                catch (e) {
+                    console.log(e.message);
+                }
+
+            }
+        };
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // $('#btnLogin').click(function () {
+            //     validateLogin();
+            // })
+
+            $('#divRegister input').on('keyup', function(e) {
+                if (e.keyCode == 13){
+                    $('#btnRegister').trigger('click')
+                }
+            });
+
+
+            $('#btnRegister').click(function () {
+                if (validateAllFields('#divRegister')) {
+                    if(!emailValidator('#txtEmail')){
+                        return false;
+                    }
+                    if($('#txtPassword').val() != $('#txtConfirmPass').val()){
+                        error.showError('#txtConfirmPass', 'The entered password and confirm password does not match.');
+                        return false;
+                    }
+                    //enter code to submit info
+                }
+                return false;
+            });
+
+        });
+
+        function validateLogin(){
+            if(validateAllFields('#divLogin')){
+
+                return true;
+            }
+            return false;
+        }
+    </script>
+</head>
+
+<body style="background-color: #CCCCCC">
+<header class="pageHeader">
+    <div class="container">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <img id="imgLogo" src="http://nexthoughts.com/img/logo.png" alt="cannot load logo"/>
+        </div>
+
+        <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12">
+            <h2 id="title" style="color: #2b669a">Link Sharing</h2>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+            <div class="socialIcons">
+                <a class="facebook fa-stack" target="_blank" href="https://www.facebook.com/">
+                    <span class="fa fa-circle fa-stack-2x"></span>
+                    <span class="fa fa-facebook fa-stack-1x"></span>
+                </a>
+                <a class="linkedin fa-stack" target="_blank" href="https://linked.in/">
+                    <span class="fa fa-circle fa-stack-2x"></span>
+                    <span class="fa fa-linkedin fa-stack-1x"></span>
+                </a>
+            </div>
+
+            <div class="search input-group">
+                <input type="text" class="form-control" id="txtSearch" name="search" placeholder="Search"/>
+                <span class="input-group-addon" id="btnSearch">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<div class="container loginBody">
+    <div class="row">
+    <div class="col-md-12 border-TB">
+        <div class="col-md-2 p-10 pull-right">
+            <button type="button" class="btn btn-primary" onclick="createUser();">Add User</button>
+        </div>
+        <div class="col-md-2 p-10 pull-right">
+        <button type="button" class="btn btn-primary" onclick="createTopic();">Add Topic</button>
+        </div>
+        <div class="col-md-2 p-10 pull-right">
+            <button type="button" class="btn btn-primary" onclick="createResource();">Add Resource</button>
+        </div>
+
+        </div>
+
+    </div>
+    <hr>
+    <div class="row col-md-offset-2" id="register">
+        <div class="col-md-10">
+            <h3>User Registration </h3>
+           <!-- <form action="http://localhost:8087/handleAddUser" method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="firstname">First Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" id="firstname" name="first_name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="lastname">Last Name </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" id="lastname" name="last_name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" id="username" name="user_name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="password" id="password" name="password">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="confirmpassword">Confirm Password</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="password" id="confirmpassword" name="confirmpassword">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3">
+                        <input type="submit" value="Register"x>
+                    </div>
+                </div>
+            </form>-->
+           <form action="http://localhost:8088/handleAddUser" method="post" style="float: left; width: 90%;">
+                <div class="loginForm col-lg-12 col-md-12">
+                    <div class="loginFormTitle">
+                        Register
+                    </div>
+                    <div class="loginFormBody" style="height: 370px; margin-bottom: 10px">
+                        <div id="divRegister">
+                            <span class="col-md-5">
+                                <label id="lblFirstName" for="txtFirstName">First Name</label>
+                            </span>
+                            <span class="col-md-7">
+                                <input type="text" id="txtFirstName" title="Click to enter First Name"
+                                       placeholder="First Name" name="first_name"
+                                       errorMessage="Please enter First Name"
+                                       maxlength="100" class="form-control" mandatory="1"/>
+                            </span>
+
+                            <div class="clearfix"></div>
+                            <span class="col-md-5" style="margin-top: 5px">
+                                <label id="lblLastName" for="txtLastName">Last Name</label>
+                            </span>
+                            <span class="col-md-7">
+                                <input type="text" id="txtLastName" title="Click to enter Last Name" placeholder="Last Name"
+                                       name="last_name" errorMessage="Please enter Last Name"
+                                       class="form-control" mandatory="1"/>
+                            </span>
+
+                            <div class="clearfix"></div>
+                            <span class="col-md-5" style="margin-top: 5px">
+                                <label id="lblUserName" for="txtUserName">Username</label>
+                            </span>
+                            <span class="col-md-7">
+                                <input type="text" id="txtUserName" title="Click to enter User Name" placeholder="User Name"
+                                       name="user_name" errorMessage="Please enter Username"
+                                       class="form-control" mandatory="1"/>
+                            </span>
+
+                            <div class="clearfix"></div>
+                            <span class="col-md-5" style="margin-top: 5px">
+                                <label id="lblPassword" for="txtPassword">Password</label>
+                            </span>
+                            <span class="col-md-7">
+                                <input type="password" id="txtPassword" title="Click to enter Password"
+                                       placeholder="password" name="password"
+                                       errorMessage="Please enter Password"
+                                       class="form-control" mandatory="1"/>
+                            </span>
+
+                            <div class="clearfix"></div>
+                            <span class="col-md-5" style="margin-top: 5px">
+                                <label id="lblConfirmPass" for="txtConfirmPass">Confirm Password</label>
+                            </span>
+                            <span class="col-md-7">
+                                <input type="password" id="txtConfirmPass" title="Click to Confirm Password"
+                                       placeholder="Confirm Password" errorMessage="Please enter Confirm Password"
+                                       class="form-control" mandatory="1"/>
+                            </span>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div style="margin-top: 10px">
+                            <input type="submit"  class="btn btn-primary pull-right" value="Register" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function (){
+        $('#register').hide();
+    });
+    function createUser(){
+        $('#register').show();
+    }
+</script>
+</body>
+</html>
