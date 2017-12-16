@@ -49,7 +49,7 @@ class DatabaseUtil {
 
 
         sql.execute "CREATE TABLE resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, description  VARCHAR(64) ,created_by_user_uuid VARCHAR(64) , " +
-                "topic_uuid VARCHAR(64) , date_created DATE , uuid VARCHAR(64), resourceUrl VARCHAR(64)) ;"
+                "topic_uuid VARCHAR(64) , date_created DATE , uuid VARCHAR(64), resource_url VARCHAR(64)) ;"
 
         println "################# ----------   Creating Table : resource   ------------#################"
 

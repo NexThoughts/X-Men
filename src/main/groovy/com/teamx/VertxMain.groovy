@@ -12,6 +12,7 @@ class VertxMain {
 //        vertx.deployVerticle(new ApplicationVerticle())
 //        vertx.deployVerticle(new MailVerticle())
 //        vertx.deployVerticle(new TemplateTest())
+//        vertx.deployVerticle(new ResourceVerticle())
     }
 
 }
