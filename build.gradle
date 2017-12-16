@@ -37,6 +37,10 @@ dependencies {
 
     //Mail
     compile 'io.vertx:vertx-mail-client:3.5.0'
+
+    //TemplateEngine
+    compile 'io.vertx:vertx-web-templ-thymeleaf:3.5.0'
+    compile 'org.slf4j:slf4j-api:1.7.25'
 }
 
 //jar {
