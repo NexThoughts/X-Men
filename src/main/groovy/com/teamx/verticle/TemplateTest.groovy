@@ -29,6 +29,17 @@ class TemplateTest extends AbstractVerticle {
             })
 
         })
+        router.get("/home").handler({ ctx ->
+
+            engine.render(ctx, "templates/adminhome.html", { res ->
+                if (res.succeeded()) {
+                    ctx.response().end(res.result());
+                } else {
+                    ctx.fail(res.cause());
+                }
+            })
+
+        })
 
         // start a HTTP web server on port 8080
         vertx.createHttpServer().requestHandler(router.&accept).listen(8087);
