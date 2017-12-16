@@ -60,7 +60,6 @@ class MailVerticle extends AbstractVerticle {
     void handleSendEmail(RoutingContext ctx){
         //Sending Email
         def response = ctx.response()
-        println(ctx.request().getParam("data"))
         response.putHeader("content-type", "text/plain")
         MailConfig config = new MailConfig();
         config.port = Constants.MAIL_PORT
@@ -70,24 +69,24 @@ class MailVerticle extends AbstractVerticle {
         config.password = Constants.MAIL_PASSWORD
         MailMessage message = new MailMessage()
         message.from = Constants.MAIL_FROM
-        message.to = ["abhilash@nexthoughts.com", "hiten@fintechlabs.in"]
-        message.cc = []
+        message.to = ["harish@nexthoughts.com", "manish@fintechlabs.in"]
+        message.cc = ["abhilash@nexthoughts.com", "hiten@fintechlabs.in"]
         message.bcc = []
-        message.html = "this is html text <a href=\"http://vertx.io\">vertx.io</a>"
+        message.html = "You have been invited"
         message.bounceAddress = Constants.MAIL_BOUNCEADDRESS
-        message.subject = "first mail"
+        message.subject = "Linkshare Invitation"
         MailClient mailClient = MailClient.createShared(vertx, config, "exampleclient");
         println("+++++++++++++++++++Sening Email+++++++++++++++++++++++++")
-//        mailClient.sendMail(message, { result ->
-//            if (result.succeeded()) {
-//                println(result.result())
-//                response.end("mail Sent")
-//                println("+++++++++++++++++++Mail sent+++++++++++++++++++")
-//            } else {
-//                println("+++++++++++++++++++got exception in email+++++++++++++++++++")
-//                response.end("mail Could not be sent")
-//                result.cause().printStackTrace()
-//            }
-//        })
+        mailClient.sendMail(message, { result ->
+            if (result.succeeded()) {
+                println(result.result())
+                response.end("mail Sent")
+                println("+++++++++++++++++++Mail sent+++++++++++++++++++")
+            } else {
+                println("+++++++++++++++++++got exception in email+++++++++++++++++++")
+                response.end("mail Could not be sent")
+                result.cause().printStackTrace()
+            }
+        })
     }
 }
