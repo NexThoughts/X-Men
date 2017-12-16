@@ -35,10 +35,13 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     compile "io.vertx:vertx-lang-groovy:3.5.0"
     compile 'io.vertx:vertx-mail-client:3.5.0'
+    compile 'io.vertx:vertx-jdbc-client:3.5.0'
 
     //TemplateEngine
     compile 'io.vertx:vertx-web-templ-thymeleaf:3.5.0'
     compile 'org.slf4j:slf4j-api:1.7.25'
+    compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+
 }
 
 //jar {
