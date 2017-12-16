@@ -29,7 +29,7 @@ class DatabaseUtil {
 
         sql.execute "CREATE TABLE user(id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 " user_name  VARCHAR(64) , password  VARCHAR(64) , first_name  VARCHAR(64) ,last_name  VARCHAR(64) ," +
-                "admin TINYINT(1) , active TINYINT(1) ,date_created DATE , uuid VARCHAR(64) ) ;"
+                "is_admin TINYINT(1) , is_active TINYINT(1) ,date_created DATE , uuid VARCHAR(64) ) ;"
 
         println "################# ----------   Creating Table : user   ------------#################"
 
