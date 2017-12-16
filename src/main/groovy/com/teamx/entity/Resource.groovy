@@ -7,7 +7,6 @@ class Resource {
     String description
     String createByUserUuid
     String topicUuid
-    String linkResourceUuid
-    String documentResourceUuid
+    String resourceUrl
 
 }
