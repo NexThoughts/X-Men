@@ -347,32 +347,15 @@
             //     validateLogin();
             // })
 
-            $('#divRegister input').on('keyup', function (e) {
-                if (e.keyCode == 13) {
-                    $('#btnRegister').trigger('click')
-                }
-            });
 
-
-            $('#btnRegister').click(function () {
-                if (validateAllFields('#divRegister')) {
-                    if (!emailValidator('#txtEmail')) {
-                        return false;
-                    }
-                    if ($('#txtPassword').val() != $('#txtConfirmPass').val()) {
-                        error.showError('#txtConfirmPass', 'The entered password and confirm password does not match.');
-                        return false;
-                    }
-                    //enter code to submit info
-                }
-                return false;
-            });
 
         });
 
-        function validateLogin() {
-            if (validateAllFields('#divLogin')) {
-
+        function validateInvitation() {
+            if (validateAllFields('#modalInvite')) {
+                if (!emailValidator('#txtEmail')) {
+                    return false;
+                }
                 return true;
             }
             return false;
@@ -420,7 +403,8 @@
 <div class="container loginBody">
     <div class="row" style="padding-top: 10px;">
         <div class="userOptions">
-            <span class="fa fa-comment fa-2x" data-toggle="modal" data-target="#modalTopicCreate">&nbsp;Create Topic</span>
+            <span class="fa fa-comment fa-2x" data-toggle="modal"
+                  data-target="#modalTopicCreate">&nbsp;Create Topic</span>
             <span class="fa fa-envelope fa-2x" data-toggle="modal" data-target="#modalInvite">&nbsp;Invite People</span>
             <span class="fa fa-link fa-2x" data-toggle="modal" data-target="#modalShareLink">&nbsp;Share Link</span>
         </div>
@@ -463,40 +447,43 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Send Invitation</h4>
             </div>
-
+            <form action="http://localhost:8086/sendEmail" method="post">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2">
-                        <label for="txtEmail" id="lblEmail">Email</label>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2">
+                            <label for="txtEmail" id="lblEmail">Email</label>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <input type="text" name="txtEmail" id="txtEmail" mandatory="1" placeholder="Email ID"
+                                   maxlength="100"
+                                   title="Click here to enter Email ID" class="form-control"
+                                   errorMessage="Please enter a valid Email ID"/>
+                        </div>
                     </div>
 
-                    <div class="col-lg-10 col-md-10">
-                        <input type="text" name="email" id="txtEmail" mandatory="1" placeholder="Email ID"
-                               maxlength="100"
-                               title="Click here to enter Email ID" class="form-control"
-                               errorMessage="Please enter a valid Email ID"/>
-                    </div>
-                </div>
+                    <div class="clearfix"></div>
 
-                <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2">
+                            <label for="ddlTopic" id="lblTopic">Topic</label>
+                        </div>
 
-                <div class="row">
-                    <div class="col-lg-2 col-md-2">
-                        <label for="ddlTopic" id="lblTopic">Topic</label>
+                        <div class="col-lg-10 col-md-10">
+                            <select id="ddlTopic">
+                                <option>Topic</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="col-lg-10 col-md-10">
-                        <select id="ddlTopic">
-                            <option>Topic</option>
-                        </select>
-                    </div>
-                </div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary pull-right">Invite</button>
+                <button type="submit" class="btn btn-primary pull-right" onclick="javascript:return validateInvitation()">Invite</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
