@@ -1,5 +1,7 @@
 package com.teamx
 
+import com.teamx.verticle.MailVerticle
+import com.teamx.verticle.TemplateTest
 import io.vertx.core.Vertx
 
 class VertxMain {
@@ -10,8 +12,8 @@ class VertxMain {
         ])
 //        DatabaseUtil.createTables()
 //        vertx.deployVerticle(new ApplicationVerticle())
-//        vertx.deployVerticle(new MailVerticle())
-//        vertx.deployVerticle(new TemplateTest())
+        vertx.deployVerticle(new MailVerticle())
+        vertx.deployVerticle(new TemplateTest())
 //        vertx.deployVerticle(new ResourceVerticle())
     }
 
