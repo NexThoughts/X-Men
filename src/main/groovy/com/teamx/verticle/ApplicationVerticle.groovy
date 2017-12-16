@@ -3,7 +3,6 @@ package com.teamx.verticle
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
 import io.vertx.core.http.HttpServer
-import io.vertx.ext.auth.User
 import io.vertx.ext.web.Router
 
 class ApplicationVerticle extends AbstractVerticle {
