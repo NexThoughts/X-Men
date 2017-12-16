@@ -31,9 +31,9 @@ class MailVerticle extends AbstractVerticle {
             config.password = Constants.MAIL_PASSWORD
             MailMessage message = new MailMessage()
             message.from = Constants.MAIL_FROM
-            message.to = ["abhilash@nexthoughts.com"]
+            message.to = ["abhilash@nexthoughts.com", "hiten@fintechlabs.in"]
             message.cc = []
-            message.bcc =[]
+            message.bcc = []
             message.html = "this is html text <a href=\"http://vertx.io\">vertx.io</a>"
             message.bounceAddress = Constants.MAIL_BOUNCEADDRESS
             message.subject = "first mail"
