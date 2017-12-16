@@ -1,6 +1,7 @@
 package com.teamx.verticle
 
 import com.teamx.entity.ResourceLink
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
@@ -74,7 +75,7 @@ class ResourceVerticle extends AbstractVerticle {
         JsonObject resourceJSONData = routingContext.getBodyAsJson()
         def jsonSlurper = new JsonSlurper()
         def resourceObjData = jsonSlurper.parseText(resourceJSONData.toString())
-        session.put("currentUserUuid", UUID.randomUUID())
+        session.put("currentUserUuid", "${UUID.randomUUID()}")
         ResourceLink resourceLink = new ResourceLink(resourceObjData, session.get("currentUserUuid").toString())
 
         client.getConnection({ conn ->
@@ -82,8 +83,7 @@ class ResourceVerticle extends AbstractVerticle {
             connection.query("INSERT INTO resource(description, created_by_user_uuid, topic_uuid, date_created, uuid, resource_url) " +
                     "VALUES('${resourceLink.description}','${resourceLink.createByUserUuid}','${resourceLink.topicUuid}','${new java.sql.Date(resourceLink.dateCreated.getTime())}','${resourceLink.uuid}','${resourceLink.resourceUrl}')", { res ->
                 if (res.failed()) {
-                    println "----10----------"
-                    println("Cannot store the data to for ResourceLink the database")
+                    println("Cannot store the data for ResourceLink to the database")
                     res.cause().printStackTrace()
                     return
                 }
@@ -95,13 +95,83 @@ class ResourceVerticle extends AbstractVerticle {
                 }
             })
             println "Data has been saved successfully for ResourceLink"
-            routingContext.response().putHeader("content-type", "application/json").end("SUCCESS")
+        })
+        routingContext.response().putHeader("content-type", "application/json").end("SUCCESS")
+    }
+
+    public static void getResource(RoutingContext routingContext) {
+        ResourceLink resourceLink = null
+        JsonObject config = new JsonObject()
+                .put("url", "jdbc:mysql://localhost:3306/link_sharing?autoreconnect=true")
+                .put("user", "root")
+                .put("password", "nextdefault")
+                .put("driver_class", "com.mysql.jdbc.Driver")
+                .put("max_pool_size", 30)
+        def client = JDBCClient.createShared(routingContext.vertx(), config)
+
+        String resourceId = routingContext.request().getParam("resourceId")
+        client.getConnection({ conn ->
+            def connection = conn.result()
+            connection.query("SELECT * FROM resource where uuid = '${resourceId}'", { res ->
+                if (res.failed()) {
+                    println("Cannot fetch the data for ResourceLink from the database")
+                    res.cause().printStackTrace()
+                    return
+                }
+
+                res.result().results.each { line ->
+                    println(line)
+                    resourceLink = new ResourceLink(line)
+                    routingContext.response().putHeader("content-type", "application/json").end("${JsonOutput.toJson(resourceLink)}")
+                }
+            })
+
+            connection.close({ done ->
+                if (done.failed()) {
+                    throw new RuntimeException(done.cause())
+                }
+            })
+            println "Data has been fetched successfully for ResourceLink"
         })
     }
 
-    public static void getResource(RoutingContext routingContext) {}
+    public static void listResource(RoutingContext routingContext) {
+        List<ResourceLink> resourceLinkList = []
+        JsonObject config = new JsonObject()
+                .put("url", "jdbc:mysql://localhost:3306/link_sharing?autoreconnect=true")
+                .put("user", "root")
+                .put("password", "nextdefault")
+                .put("driver_class", "com.mysql.jdbc.Driver")
+                .put("max_pool_size", 30)
+        def client = JDBCClient.createShared(routingContext.vertx(), config)
 
-    public static void listResource(RoutingContext routingContext) {}
+        Session session = routingContext.session()
+
+        String createdByUserUuid = routingContext.request().getParam("created_by_user_uuid")
+        client.getConnection({ conn ->
+            def connection = conn.result()
+            connection.query("SELECT * FROM resource where created_by_user_uuid = '26a4364a-a8b1-46f2-b2fd-6628ebd62ef6'", { res ->
+                if (res.failed()) {
+                    println("Cannot fetch the data for ResourceLink from the database")
+                    res.cause().printStackTrace()
+                    return
+                }
+
+                res.result().results.each { line ->
+                    println(line)
+                    resourceLinkList << new ResourceLink(line)
+                }
+                routingContext.response().putHeader("content-type", "application/json").end("${JsonOutput.toJson(resourceLinkList)}")
+            })
+
+            connection.close({ done ->
+                if (done.failed()) {
+                    throw new RuntimeException(done.cause())
+                }
+            })
+            println "Data has been fetched successfully for ResourceLink"
+        })
+    }
 
     public static void deleteResource(RoutingContext routingContext) {}
 
