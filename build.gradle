@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'groovy'
+apply plugin:'application'
 
 sourceSets {
     main {
@@ -26,6 +27,8 @@ repositories {
     jcenter()
 }
 
+mainClassName = "com.teamx.VertxMain"
+
 dependencies {
     compile "io.vertx:vertx-core:3.5.0"
     compile 'io.vertx:vertx-web:3.5.0'
@@ -44,12 +47,8 @@ dependencies {
 
 }
 
-//jar {
-//    // by default fat jar
-//    archiveName = 'vertx-x-men-link-sharing-backend-fat.jar'
-//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//    manifest {
-//        attributes 'Main-Class': 'io.vertx.core.Launcher'
-//        attributes 'Main-Verticle': 'com.hprog99.verticles.SingleApplicationVerticle'
-//    }
-//}
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.teamx.VertxMain'
+    }
+}
