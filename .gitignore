@@ -24,6 +24,3 @@ hs_err_pid*
 .idea/
 gradle/
 src/test/
-src/resources/images/
-src/resources/javascripts/
-src/resources/stylesheets/
