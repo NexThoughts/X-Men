@@ -75,7 +75,7 @@ class ResourceVerticle extends AbstractVerticle {
         JsonObject resourceJSONData = routingContext.getBodyAsJson()
         def jsonSlurper = new JsonSlurper()
         def resourceObjData = jsonSlurper.parseText(resourceJSONData.toString())
-        session.put("currentUserUuid", UUID.randomUUID())
+        session.put("currentUserUuid", "26a4364a-a8b1-46f2-b2fd-6628ebd62ef6")
         ResourceLink resourceLink = new ResourceLink(resourceObjData, session.get("currentUserUuid").toString())
 
         client.getConnection({ conn ->
@@ -131,11 +131,47 @@ class ResourceVerticle extends AbstractVerticle {
                     throw new RuntimeException(done.cause())
                 }
             })
-            println "Data has been saved successfully for ResourceLink"
+            println "Data has been fetched successfully for ResourceLink"
         })
     }
 
-    public static void listResource(RoutingContext routingContext) {}
+    public static void listResource(RoutingContext routingContext) {
+        List<ResourceLink> resourceLinkList = []
+        JsonObject config = new JsonObject()
+                .put("url", "jdbc:mysql://localhost:3306/link_sharing?autoreconnect=true")
+                .put("user", "root")
+                .put("password", "nextdefault")
+                .put("driver_class", "com.mysql.jdbc.Driver")
+                .put("max_pool_size", 30)
+        def client = JDBCClient.createShared(routingContext.vertx(), config)
+
+        Session session = routingContext.session()
+
+        String createdByUserUuid = routingContext.request().getParam("created_by_user_uuid")
+        client.getConnection({ conn ->
+            def connection = conn.result()
+            connection.query("SELECT * FROM resource where created_by_user_uuid = '26a4364a-a8b1-46f2-b2fd-6628ebd62ef6'", { res ->
+                if (res.failed()) {
+                    println("Cannot fetch the data for ResourceLink from the database")
+                    res.cause().printStackTrace()
+                    return
+                }
+
+                res.result().results.each { line ->
+                    println(line)
+                    resourceLinkList << new ResourceLink(line)
+                }
+                routingContext.response().putHeader("content-type", "application/json").end("${JsonOutput.toJson(resourceLinkList)}")
+            })
+
+            connection.close({ done ->
+                if (done.failed()) {
+                    throw new RuntimeException(done.cause())
+                }
+            })
+            println "Data has been fetched successfully for ResourceLink"
+        })
+    }
 
     public static void deleteResource(RoutingContext routingContext) {}
 
