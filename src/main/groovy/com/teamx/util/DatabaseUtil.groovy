@@ -29,7 +29,7 @@ class DatabaseUtil {
 
         sql.execute "CREATE TABLE user(id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 " user_name  VARCHAR(64) , password  VARCHAR(64) , first_name  VARCHAR(64) ,last_name  VARCHAR(64) ," +
-                "admin TINYINT(1) , active TINYINT(1) ,date_created DATE , uuid VARCHAR(64) ) ;"
+                "is_admin TINYINT(1) , is_active TINYINT(1) ,date_created DATE , uuid VARCHAR(64) ) ;"
 
         println "################# ----------   Creating Table : user   ------------#################"
 
@@ -47,18 +47,9 @@ class DatabaseUtil {
         println "################# ----------   Creating Table : subscription   ------------#################"
 
 
-        sql.execute "CREATE TABLE link_resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, resource_url VARCHAR(2083) , uuid  VARCHAR(64), date_created DATE) ;"
-
-        println "################# ----------   Creating Table : link_resource   ------------#################"
-
-
-        sql.execute "CREATE TABLE document_resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, file_path  VARCHAR(64) , uuid  VARCHAR(64), date_created DATE) ;"
-
-        println "################# ----------   Creating Table : document_resource   ------------#################"
-
 
         sql.execute "CREATE TABLE resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, description  VARCHAR(64) ,created_by_user_uuid VARCHAR(64) , " +
-                "topic_uuid VARCHAR(64) , date_created DATE , link_resource_uuid  VARCHAR(64), document_resource_uuid  VARCHAR(64), uuid VARCHAR(64)) ;"
+                "topic_uuid VARCHAR(64) , date_created DATE , uuid VARCHAR(64), resource_url VARCHAR(64)) ;"
 
         println "################# ----------   Creating Table : resource   ------------#################"
 

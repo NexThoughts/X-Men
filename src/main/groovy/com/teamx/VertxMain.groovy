@@ -1,7 +1,5 @@
 package com.teamx
 
-import com.teamx.verticle.TemplateTest
-import com.teamx.verticle.UserVerticle
 import io.vertx.core.Vertx
 
 class VertxMain {
@@ -15,6 +13,8 @@ class VertxMain {
 //        vertx.deployVerticle(new MailVerticle())
         vertx.deployVerticle(new TemplateTest())
         vertx.deployVerticle(new UserVerticle())
+//        vertx.deployVerticle(new TemplateTest())
+//        vertx.deployVerticle(new ResourceVerticle())
     }
 
 }
