@@ -42,33 +42,33 @@ class DatabaseVerticle {
 
 
         sql.execute "CREATE TABLE subscription(id INTEGER PRIMARY KEY AUTO_INCREMENT, topic_uuid  VARCHAR(64) , user_uuid VARCHAR(64) ," +
-                " seriousness VARCHAR(64) , date_created DATE ) ;"
+                " seriousness VARCHAR(64) , date_created DATE, uuid VARCHAR(64) ) ;"
 
         println "################# ----------   Creating Table : subscription   ------------#################"
 
 
-        sql.execute "CREATE TABLE link_resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, url VARCHAR(2083) , uuid  VARCHAR(64)) ;"
+        sql.execute "CREATE TABLE link_resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, resource_url VARCHAR(2083) , uuid  VARCHAR(64), date_created DATE) ;"
 
         println "################# ----------   Creating Table : link_resource   ------------#################"
 
 
-        sql.execute "CREATE TABLE document_resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, file_path  VARCHAR(64) , uuid  VARCHAR(64)) ;"
+        sql.execute "CREATE TABLE document_resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, file_path  VARCHAR(64) , uuid  VARCHAR(64), date_created DATE) ;"
 
         println "################# ----------   Creating Table : document_resource   ------------#################"
 
 
         sql.execute "CREATE TABLE resource(id INTEGER PRIMARY KEY AUTO_INCREMENT, description  VARCHAR(64) ,created_by_user_uuid VARCHAR(64) , " +
-                "topic_uuid VARCHAR(64) , date_created DATE , link_resource_uuid  VARCHAR(64), document_resource_uuid  VARCHAR(64) ) ;"
+                "topic_uuid VARCHAR(64) , date_created DATE , link_resource_uuid  VARCHAR(64), document_resource_uuid  VARCHAR(64), uuid VARCHAR(64)) ;"
 
         println "################# ----------   Creating Table : resource   ------------#################"
 
 
-        sql.execute "CREATE TABLE reading_item(id INTEGER PRIMARY KEY AUTO_INCREMENT, resource_uuid  VARCHAR(64) , user_uuid  VARCHAR(64) , is_read TINYINT(1)) ;"
+        sql.execute "CREATE TABLE reading_item(id INTEGER PRIMARY KEY AUTO_INCREMENT, resource_uuid  VARCHAR(64) , user_uuid  VARCHAR(64) , is_read TINYINT(1), uuid VARCHAR(64), date_created DATE) ;"
 
         println "################# ----------   Creating Table : reading_item   ------------#################"
 
 
-        sql.execute "CREATE TABLE resource_rating(id INTEGER PRIMARY KEY AUTO_INCREMENT, resource_uuid  VARCHAR(64) , user_uuid  VARCHAR(64)  , score INTEGER ) ;"
+        sql.execute "CREATE TABLE resource_rating(id INTEGER PRIMARY KEY AUTO_INCREMENT, resource_uuid  VARCHAR(64) , user_uuid  VARCHAR(64)  , score INTEGER, uuid VARCHAR(64), date_created DATE) ;"
 
         println "################# ----------   Creating Table : resource_rating   ------------#################"
 
