@@ -35,7 +35,7 @@ class DatabaseVerticle {
 
 
         sql.execute "CREATE TABLE topic(id INTEGER PRIMARY KEY AUTO_INCREMENT , name VARCHAR(60) , " +
-                "created_by_user_uuid VARCHAR(60) , dateCreated DATE , visibility TINYINT(1) , uuid  VARCHAR(64)) ;"
+                "created_by_user_uuid VARCHAR(60) , date_created DATE , visibility TINYINT(1) , uuid  VARCHAR(64)) ;"
 
         println "################# ----------   Creating Table : topic   ------------#################"
 
