@@ -1,12 +1,13 @@
 package com.teamx.verticle
 
+import com.mysql.jdbc.Driver
 import groovy.sql.Sql
 
 import java.sql.DriverManager
 
 class DatabaseVerticle {
     static def createConnection() {
-        DriverManager.registerDriver(new com.mysql.jdbc.Driver())
+        DriverManager.registerDriver(new Driver())
         try {
             def dbURL = 'jdbc:mysql://localhost:3306/link_sharing'
             def dbUserName = 'root'
@@ -16,8 +17,6 @@ class DatabaseVerticle {
             def sql = Sql.newInstance(dbURL, dbUserName, dbPassword, dbDriver)
             println "Returning sql instance"
             return sql
-
-
         } catch (Exception e) {
             println('Error : try again ....!!')
             println(e.getMessage())
@@ -30,7 +29,7 @@ class DatabaseVerticle {
 
         sql.execute "CREATE TABLE user(id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 " user_name  VARCHAR(64) , password  VARCHAR(64) , first_name  VARCHAR(64) ,last_name  VARCHAR(64) ," +
-                " photo  VARCHAR(64) , admin TINYINT(1) , active TINYINT(1) ,date_created DATE , uuid VARCHAR(64) ) ;"
+                "admin TINYINT(1) , active TINYINT(1) ,date_created DATE , uuid VARCHAR(64) ) ;"
 
         println "################# ----------   Creating Table : user   ------------#################"
 
