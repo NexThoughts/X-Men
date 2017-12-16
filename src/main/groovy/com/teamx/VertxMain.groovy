@@ -8,7 +8,7 @@ class VertxMain {
         def vertx = Vertx.vertx([
                 workerPoolSize: 40
         ])
-//        new DatabaseVerticle().createTables()
+//        DatabaseUtil.createTables()
 //        vertx.deployVerticle(new ApplicationVerticle())
 //        vertx.deployVerticle(new MailVerticle())
 //        vertx.deployVerticle(new TemplateTest())

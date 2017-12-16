@@ -1,11 +1,11 @@
-package com.teamx.verticle
+package com.teamx.util
 
 import com.mysql.jdbc.Driver
 import groovy.sql.Sql
 
 import java.sql.DriverManager
 
-class DatabaseVerticle {
+class DatabaseUtil {
     static def createConnection() {
         DriverManager.registerDriver(new Driver())
         try {
